@@ -80,9 +80,9 @@ document.getElementById('close-timebucks-bar').addEventListener('click', functio
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 async function blockAdsOnPage() {
-    await delay(5);
-    let ad_count = 0;
-    fetch('http://localhost/easylist.txt')
+    // await delay(5);
+    var ad_count = 0;
+    fetch('http://localhost/serve.php')
         .then(response => response.text())
         .then(filterListText => {
             // Parse the filter list into an array of rules
@@ -97,7 +97,6 @@ async function blockAdsOnPage() {
                     const elementClassNames = element.className;
                     const elementId = element.id;
 
-                    alert(classNames);
                     // Create a regex pattern to match any class name in the rule
                     const classPattern = new RegExp(`(?:^|\\s)${classNames}.*`);
 
@@ -118,10 +117,11 @@ async function blockAdsOnPage() {
                 const allElements = document.querySelectorAll('*');
                 allElements.forEach(element => {
                     if (matchesFilter(element)) {
-                        console.log(element.id)
+                        ad_count++;
                         element.remove();
                     }
                 });
+                console.log("Ads Blocked : ", ad_count);
             }
 
             // Call the function to remove matching elements
