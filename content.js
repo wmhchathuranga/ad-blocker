@@ -117,8 +117,8 @@ async function blockAdsOnPage() {
                 const allElements = document.querySelectorAll('*');
                 allElements.forEach(element => {
                     if (matchesFilter(element)) {
-                        ad_count++;
                         element.remove();
+                        ad_count++;
                     }
                 });
                 console.log("Ads Blocked : ", ad_count);
